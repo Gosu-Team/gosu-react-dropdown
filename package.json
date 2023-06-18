@@ -1,6 +1,6 @@
 {
   "name": "gosu-dropdown",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "A React Dropdown",
   "main": "dist/index.js",
   "scripts": {

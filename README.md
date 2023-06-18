@@ -39,12 +39,16 @@ const options = [
 
 ## Props
 
-| Property             | Type           | Default        | Description                                       |
-| :--------------------|:---------------|:---------------|:--------------------------------------------------|
-| `options`            | `Array`        | `[]`           | {key: string, value: string, label?: string }      |
-| `onChange`           | `function`     | `undefined`    |                                                   |
-| `listPlacement`      | `string`       | `bottomCenter` | bottomCenter, bottomLeft, bottomRight             |
-| `caretColor`         | `styles`       | `undefined`    | #000                                              |
-| `placeholder`        | `styles`       | `undefined`    | 'Select option'                                   |
-| `defaultSelectedKey` | `number`       | `string`       | Any key from options                              |
-
+| Property             | Type           | Default        | Description                                         |
+| :--------------------|:---------------|:---------------|:----------------------------------------------------|
+| `options`            | `Array`        | `[]`           | {key: string, value: string, label?: string }       |
+| `onChange`           | `function`     | `undefined`    |                                                     |
+| `listPlacement`      | `string`       | `bottomCenter` | bottomCenter, bottomLeft, bottomRight               |
+| `caretColor`         | `styles`       | `undefined`    | #000                                                |
+| `placeholder`        | `styles`       | `undefined`    | 'Select option'                                     |
+| `defaultSelectedKey` | `number`       | `string`       | Any key from options                                |
+| `isOpen`             | `boolean`      | `undefined`    | Needs for development, if you want add custom style |
+| `styleRoot`          | `styles`       | `undefined`    | Custom style for Root                               |
+| `styleTrigger`       | `styles`       | `undefined`    | Custom style for Trigger                            |
+| `styleOption`        | `styles`       | `undefined`    | Custom style for Option                             |
+| `styleList`          | `styles`       | `undefined`    | Custom style for List                               |

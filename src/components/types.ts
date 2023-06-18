@@ -1,6 +1,6 @@
-import { ReactElement } from "react";
+import { ReactElement, CSSProperties } from "react";
 
-export type Option = { value: React.ReactElement, key: string, label: React.ReactElement }
+export type Option = { value: ReactElement, key: string, label: ReactElement }
 export type Placement = 'bottomLeft' | 'bottomCenter' | 'bottomRight'
 
 export interface DropdownProps {
@@ -10,5 +10,10 @@ export interface DropdownProps {
   caretColor?: string
   placeholder?: string
   defaultSelectedKey?: string
+  isOpen?: boolean
+  styleRoot?: CSSProperties
+  styleTrigger?: CSSProperties
+  styleOption?: CSSProperties
+  styleList?: CSSProperties
 }
 

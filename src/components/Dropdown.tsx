@@ -1,8 +1,8 @@
 import React from 'react';
 import { useFocusEvent, useSelectEvent } from './events.hook';
 import { DropdownProps } from './types';
-import { getStyles } from './styles';
 import { Arrow } from './Arrow';
+import { getStyles } from './styles';
 
 export const Dropdown: React.FC<DropdownProps> = ({
   options,
@@ -10,34 +10,52 @@ export const Dropdown: React.FC<DropdownProps> = ({
   listPlacement = 'bottomCenter',
   caretColor = '#000',
   placeholder = 'Select option',
-  defaultSelectedKey
+  defaultSelectedKey,
+  styleRoot,
+  styleTrigger,
+  styleOption,
+  styleList,
+  isOpen: isOpenHard,
 }) => {
   const {
     focusRef,
     isOpen,
     handleBlur,
+    handleTouchBlur,
     handleFocus,
     handleClose
-  } = useFocusEvent()
+  } = useFocusEvent({ isOpenHard })
 
   const {
     selectedOption,
     handlePressOption
   } = useSelectEvent({ onChange, handleClose, options, defaultSelectedKey })
 
-  const styles = getStyles({ listPlacement })
+  const styles = getStyles({
+    listPlacement,
+    styleRoot,
+    styleTrigger,
+    styleOption,
+    styleList
+  })
 
   return (
-    <div style={styles.root} onBlur={handleBlur} ref={focusRef}>
-      <button style={styles.trigger} onFocus={handleFocus}>
+    <div
+      style={styles.root}
+      onBlur={handleBlur}
+      onTouchEnd={handleTouchBlur}
+      ref={focusRef}
+      tabIndex={-1}
+    >
+      <button style={styles.trigger} onClick={handleFocus}>
         {selectedOption || placeholder}
         <Arrow caretColor={caretColor} isOpen={isOpen} />
       </button>
       {isOpen && (
-        <div style={styles.listContainer}>
+        <div style={styles.list}>
           {options.map(({ value, key }) => (
             <button
-              style={styles.listItem}
+              style={styles.option}
               onClick={handlePressOption(key)}
               key={key}
             >

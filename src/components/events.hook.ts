@@ -1,19 +1,34 @@
 import { ReactElement, useRef, useState } from "react";
 import { Option } from "./types";
 
-export const useFocusEvent = () => {
+interface UseFocusEventProps {
+  isOpenHard?: boolean
+}
+
+const isUndefined = (variable: unknown): boolean =>
+  typeof variable === 'undefined'
+
+export const useFocusEvent = ({ isOpenHard }: UseFocusEventProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const focusRef = useRef(null);
 
-  const handleBlur = (event: React.FocusEvent<HTMLDivElement>) => {
-    let currentTarget = focusRef.current;
+  const onBlur = (target: Node) => {
+    const currentTarget = focusRef.current;
     if (
       currentTarget &&
       !(currentTarget as HTMLDivElement)
-        .contains(event.relatedTarget as Node)
+        .contains(target as Node)
     ) {
       setIsOpen(false);
     }
+  }
+
+  const handleBlur = (event: React.FocusEvent<HTMLDivElement>) => {
+    onBlur(event.relatedTarget as Node)
+  };
+
+  const handleTouchBlur = (event: React.TouchEvent<HTMLDivElement>) => {
+    onBlur(event.target as Node)
   };
 
   const handleFocus = () => {
@@ -26,8 +41,9 @@ export const useFocusEvent = () => {
 
   return {
     focusRef,
-    isOpen,
+    isOpen: isUndefined(isOpenHard) ? isOpen : isOpenHard as boolean,
     handleBlur,
+    handleTouchBlur,
     handleFocus,
     handleClose
   }
@@ -39,7 +55,7 @@ interface useSelectEventProps {
   defaultSelectedKey?: string
 }
 
-export const useSelectEvent = ({ onChange, handleClose, options, defaultSelectedKey }: useSelectEventProps) => {
+export const useSelectEvent = ({ onChange, options, defaultSelectedKey }: useSelectEventProps) => {
   const defaultSelectedOption = options.find((option) => option.key === defaultSelectedKey)
   const [selectedOption, setSelectedOption] = useState<ReactElement | string>(
     defaultSelectedOption ?
@@ -50,7 +66,6 @@ export const useSelectEvent = ({ onChange, handleClose, options, defaultSelected
     const candidateToSelectedOption = options.find((option) => option.key === key)
     setSelectedOption((candidateToSelectedOption as Option).label);
     onChange?.(key);
-    handleClose()
   };
 
   return {

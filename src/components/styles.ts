@@ -2,8 +2,18 @@ import { Placement } from "./types";
 
 interface stylesProps {
   listPlacement: Placement
+  styleRoot?: React.CSSProperties
+  styleTrigger?: React.CSSProperties
+  styleOption?: React.CSSProperties
+  styleList?: React.CSSProperties
 }
-export const getStyles = ({ listPlacement }: stylesProps): Record<string, React.CSSProperties> => {
+export const getStyles = ({
+  listPlacement,
+  styleRoot,
+  styleTrigger,
+  styleOption,
+  styleList
+}: stylesProps): Record<string, React.CSSProperties> => {
   const listPosition = () => {
     if (listPlacement === 'bottomLeft') {
       return { left: 0 }
@@ -24,33 +34,36 @@ export const getStyles = ({ listPlacement }: stylesProps): Record<string, React.
   return ({
     root: {
       position: "relative",
-      width: 'fit-content'
+      width: 'fit-content',
+      ...styleRoot,
     },
     trigger: {
-      backgroundColor: 'transparent',
-      border: 0,
+      backgroundColor: styleTrigger?.backgroundColor ? undefined : 'transparent',
+      border: styleTrigger?.border ? undefined : '0',
       display: 'flex',
       alignItems: 'center',
-      gap: '8px'
+      gap: '8px',
+      cursor: 'pointer',
+      ...styleTrigger
     },
-    listContainer: {
+    list: {
       position: 'absolute',
-      top: '100%',
-      marginTop: '10px',
-      backgroundColor: '#fff',
-      border: '1px solid #ddd',
       display: 'flex',
       flexDirection: 'column',
-      ...listPosition()
-
+      top: styleList?.top ? undefined : '100%',
+      marginTop: styleList?.marginTop ? undefined : '10px',
+      backgroundColor: styleList?.backgroundColor ? undefined : '#fff',
+      ...listPosition(),
+      ...styleList
     },
-    listItem: {
+    option: {
       cursor: 'pointer',
       padding: '10px',
       background: 'none',
       border: 'none',
       whiteSpace: 'nowrap',
-      textAlign: 'left'
+      textAlign: 'left',
+      ...styleOption
     }
   })
 };

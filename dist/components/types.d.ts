@@ -1,15 +1,20 @@
-import { ReactElement } from "react";
+import { ReactElement, CSSProperties } from "react";
 export type Option = {
-    value: React.ReactElement;
+    value: ReactElement;
     key: string;
-    label: React.ReactElement;
+    label: ReactElement;
 };
 export type Placement = 'bottomLeft' | 'bottomCenter' | 'bottomRight';
 export interface DropdownProps {
     options: Option[];
-    onChange?: (selectedOption: ReactElement, key: string) => void;
+    onChange?: (key: string) => void;
     listPlacement?: Placement;
     caretColor?: string;
     placeholder?: string;
     defaultSelectedKey?: string;
+    isOpen?: boolean;
+    styleRoot?: CSSProperties;
+    styleTrigger?: CSSProperties;
+    styleOption?: CSSProperties;
+    styleList?: CSSProperties;
 }
