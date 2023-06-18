@@ -53,7 +53,7 @@ const useFocusEvent = ({ isOpenHard }) => {
         handleClose
     };
 };
-const useSelectEvent = ({ onChange, options, defaultSelectedKey }) => {
+const useSelectEvent = ({ onChange, options, defaultSelectedKey, handleClose }) => {
     const defaultSelectedOption = options.find((option) => option.key === defaultSelectedKey);
     const [selectedOption, setSelectedOption] = React.useState(defaultSelectedOption ?
         defaultSelectedOption.label || defaultSelectedOption.value : '');
@@ -61,10 +61,12 @@ const useSelectEvent = ({ onChange, options, defaultSelectedKey }) => {
         const candidateToSelectedOption = options.find((option) => option.key === key);
         setSelectedOption(candidateToSelectedOption.label);
         onChange === null || onChange === void 0 ? void 0 : onChange(key);
+        handleClose();
     };
     return {
         selectedOption,
-        handlePressOption
+        handlePressOption,
+        handleClose
     };
 };
 

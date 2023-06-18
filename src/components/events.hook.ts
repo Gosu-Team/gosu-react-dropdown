@@ -55,7 +55,7 @@ interface useSelectEventProps {
   defaultSelectedKey?: string
 }
 
-export const useSelectEvent = ({ onChange, options, defaultSelectedKey }: useSelectEventProps) => {
+export const useSelectEvent = ({ onChange, options, defaultSelectedKey, handleClose }: useSelectEventProps) => {
   const defaultSelectedOption = options.find((option) => option.key === defaultSelectedKey)
   const [selectedOption, setSelectedOption] = useState<ReactElement | string>(
     defaultSelectedOption ?
@@ -66,10 +66,12 @@ export const useSelectEvent = ({ onChange, options, defaultSelectedKey }: useSel
     const candidateToSelectedOption = options.find((option) => option.key === key)
     setSelectedOption((candidateToSelectedOption as Option).label);
     onChange?.(key);
+    handleClose()
   };
 
   return {
     selectedOption,
-    handlePressOption
+    handlePressOption,
+    handleClose
   }
 }

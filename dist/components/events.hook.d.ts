@@ -17,8 +17,9 @@ interface useSelectEventProps {
     options: Option[];
     defaultSelectedKey?: string;
 }
-export declare const useSelectEvent: ({ onChange, options, defaultSelectedKey }: useSelectEventProps) => {
+export declare const useSelectEvent: ({ onChange, options, defaultSelectedKey, handleClose }: useSelectEventProps) => {
     selectedOption: string | ReactElement<any, string | import("react").JSXElementConstructor<any>>;
     handlePressOption: (key: string) => () => void;
+    handleClose: () => void;
 };
 export {};
